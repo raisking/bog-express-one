@@ -1,5 +1,21 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import styled from 'styled-components'
+
+const DivForm = styled.div` 
+width: 50%;
+padding: 30px;
+border-radius: 10px;
+input   { 
+      display: block;
+      font-size: .9em;
+      background-color: #fff;
+      width: 300px;    
+    }
+`
+const DivLabel = styled.div`
+
+`
 
 class NewCreatureForm extends Component {
   state = {
@@ -20,20 +36,29 @@ class NewCreatureForm extends Component {
       name: this.state.name,
       description: this.state.description
     }
-    await axios.post('/api/creatures', payload)
+    const res = await axios.post('/api/creatures', payload)
+    console.log(res)
     await this.props.getAllCreatures()
   }
 
   render () {
     return (
       <form onSubmit={this.handleSubmit}>
-        <div>
-          <label htmlFor="name">Name: </label>
-          <input onChange={this.handleChange} type="text" name="name" value={this.state.name}/>
-        </div>
-        <div>
-          <label htmlFor="description">Description: </label>
-          <input onChange={this.handleChange} type="text" name="description" value={this.state.description}/>
+      <div>
+        <DivForm>
+          <div>
+            <label htmlFor="name">Name: </label>
+            <DivLabel>
+            <input onChange={this.handleChange} type="text" name="name" value={this.state.name}/>
+            </DivLabel>
+          </div>
+          <div>
+            <label htmlFor="description">Description: </label>
+            <DivLabel>
+            <input onChange={this.handleChange} type="text" name="description" value={this.state.description}/>
+            </DivLabel>
+          </div>
+          </DivForm>
         </div>
         <button>Submit</button>
       </form>
